@@ -1,13 +1,140 @@
-body{
+*{
   margin:0;
   padding:0;
+  box-sizing: border-box;
 }
+
 :root {
-  --bg-color: #f4f4f4;
-  --card-bg: #ffffff;
-  --primary-color: #0077cc;
-  --accent-color: #00b894;
+  --bg-color: #fef9f5;         /* Soft Ivory */
+  --card-bg: #ffffff;          /* White cards */
+  --primary-color: #f7a9a8;    /* Peachy Pink */
+  --accent-color: #fdd692;     /* Soft Apricot */
+  --highlight-color: #a0c4ff;  /* Baby Blue */
+  --success-color: #9ae3af;    /* Mint Green */
   --text-color: #333333;
   --text-light: #666666;
-  --error-color: #e74c3c;
+  --error-color: #f28482;      /* Soft Coral Red */
+}
+
+
+body{
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  gap:3rem;
+  padding: 2rem 0;
+  min-height: 100vh; 
+  background-color: var(--bg-color);
+  color:var(--text-color)
+}
+h1{
+  font-size: 2.5rem;
+  color:var(--text-color);
+  margin-bottom: 2.5rem;
+}
+
+.auth{
+  background-color: var(--card-bg);
+  padding:2rem;
+  border-radius: 8px;
+  width:100%;
+  max-width: 400px;
+  box-shadow: 0 8px 8px rgba(0,0,0,0.1);;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  gap:1rem;
+}
+
+.btn{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap:1.5rem;
+  
+}
+button{
+  cursor:pointer;
+  background-color: var(--primary-color);
+  color: #fff; 
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+button:hover {
+  opacity: 0.9;
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#logged-in-view {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+#bookmark-form-container {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  color:var(--text-color);
+  text-align: center;
+}
+
+#bookmark-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  padding:2rem;
+}
+
+#bookmark-form input {
+  width: 100%;
+}
+
+#bookmark-form button {
+  align-self: flex-start;
+}
+
+#logout {
+  /* align-self: flex-start; */
+  background: none;  /* Remove button background */
+  border: none;      /* Remove border */
+  padding: 0;      /* Remove padding */
+  width: 1.875em;
+  margin-left: 10rem;
+  margin-bottom: 2rem;
+  cursor: pointer;   /* Keep pointer */
+  color: var(--text-color);
+}
+
+/* #logout:hover {
+    filter: invert(0.5);
+} */
+
+#logout svg {
+  width: 32px;
+  height: 32px;
+}
+
+#logout:hover svg {
+  color: var(--primary-color); /* Or any hover effect */
+  transform: scale(1.1);       /* Slight grow */
+  transition: 0.2s;
+}
+h3{
+  margin:2rem 0.5rem;
+  color:var(--text-light)
 }
