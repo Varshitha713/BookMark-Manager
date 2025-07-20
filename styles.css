@@ -147,29 +147,48 @@ h3{
   justify-content: center;
  }
  
-
-
-
-
-
-
-
-
-
-
-
-
- #bookmark-list li {
-  margin-bottom: 0.75rem;
+#bookmark-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  gap: 12px;
   list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 800px;
 }
+
+#bookmark-list li {
+  background-color: #f0f4ff;
+  border: 1px solid #ccd6f6;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
 
 #bookmark-list a {
   color: var(--primary-color);
   text-decoration: none;
   font-weight: bold;
+  margin-right: 15px;
 }
-
 #bookmark-list a:hover {
   text-decoration: underline;
+}
+
+#bookmark-list button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--error-color);
+}
+
+#bookmark-list button:hover {
+  transform: scale(1.1);
 }
