@@ -1,7 +1,5 @@
-// Import initialized app from config
-import app from "./firebase-config.js";
-
-// Firebase Auth & Database
+// ✅ Import Firebase core modules directly
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -18,15 +16,28 @@ import {
   set,
   push,
   onValue,
-  remove,
+  remove
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
-// Initialize services
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD_tavIYrLPkzoGNBWsEYrBY-NBNpfu42M",
+  authDomain: "bookmark-manager-21132.firebaseapp.com",
+  projectId: "bookmark-manager-21132",
+  storageBucket: "bookmark-manager-21132.appspot.com",
+  messagingSenderId: "415304340102",
+  appId: "1:415304340102:web:0b4f57c5e60befc3747707",
+  databaseURL: "https://bookmark-manager-21132-default-rtdb.asia-southeast1.firebasedatabase.app/"
+};
+
+// Initialize Firebase ONCE here
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 const provider = new GoogleAuthProvider();
 
-//  DOM Elements
+//  Your same logic below...
+
 const signupEmailInput = document.getElementById("signup-email");
 const signupPasswordInput = document.getElementById("signup-password");
 const loginEmailInput = document.getElementById("login-email");
@@ -46,7 +57,6 @@ const bookmarkUrlInput = document.getElementById("bookmark-url");
 const emptyState = document.getElementById("empty-state");
 const bookmarkCount = document.getElementById("bookmark-count");
 
-// Save bookmark
 bookmarkForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const title = bookmarkTitleInput.value.trim();
@@ -75,7 +85,6 @@ bookmarkForm.addEventListener("submit", (e) => {
   }
 });
 
-//  Signup
 signupButton.addEventListener("click", (e) => {
   e.preventDefault();
   const email = signupEmailInput.value;
@@ -90,7 +99,6 @@ signupButton.addEventListener("click", (e) => {
     });
 });
 
-//  Login
 loginButton.addEventListener("click", (e) => {
   e.preventDefault();
   const email = loginEmailInput.value;
@@ -105,7 +113,6 @@ loginButton.addEventListener("click", (e) => {
     });
 });
 
-//  Logout
 logoutButton.addEventListener("click", (e) => {
   e.preventDefault();
   signOut(auth)
@@ -119,7 +126,6 @@ logoutButton.addEventListener("click", (e) => {
     });
 });
 
-// Toggle Forms
 document.addEventListener("DOMContentLoaded", () => {
   const showLoginLink = document.getElementById("show-login");
   const showSignupLink = document.getElementById("show-signup");
@@ -143,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Google Sign In
 function handleGoogleSignIn() {
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -166,7 +171,6 @@ googleSignupButton?.addEventListener("click", (e) => {
   handleGoogleSignIn();
 });
 
-//  Listen to auth state
 onAuthStateChanged(auth, (user) => {
   if (user) {
     showLoggedInView(user);
@@ -175,7 +179,6 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-//  Show Logged-In View
 function showLoggedInView(user) {
   document.getElementById("logged-out-view").style.display = "none";
   document.getElementById("logged-in-view").style.display = "block";
@@ -227,7 +230,6 @@ function showLoggedInView(user) {
   });
 }
 
-//  Show Logged-Out View
 function showLoggedOutView() {
   document.getElementById("logged-out-view").style.display = "block";
   document.getElementById("logged-in-view").style.display = "none";
