@@ -1,5 +1,7 @@
-// Importing Firebase core + auth
-import app from "./FirebaseConfig.js";
+// Import initialized app from config
+import app from "./firebase-config.js";
+
+// Firebase Auth & Database
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -9,25 +11,22 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
 import {
   getDatabase,
   ref,
   set,
   push,
   onValue,
-  remove
+  remove,
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 
-// Firebase configuration
-import { firebaseConfig } from "./firebase-config.js";
-
-// Initialize Firebase
-// const app = initializeApp(firebaseConfig);
+// Initialize services
 const auth = getAuth(app);
 const db = getDatabase(app);
 const provider = new GoogleAuthProvider();
 
-// DOM Elements
+//  DOM Elements
 const signupEmailInput = document.getElementById("signup-email");
 const signupPasswordInput = document.getElementById("signup-password");
 const loginEmailInput = document.getElementById("login-email");
@@ -47,8 +46,8 @@ const bookmarkUrlInput = document.getElementById("bookmark-url");
 const emptyState = document.getElementById("empty-state");
 const bookmarkCount = document.getElementById("bookmark-count");
 
-// Save bookmarks
-bookmarkForm.addEventListener("submit", function (e) {
+// Save bookmark
+bookmarkForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const title = bookmarkTitleInput.value.trim();
   const url = bookmarkUrlInput.value.trim();
@@ -63,77 +62,72 @@ bookmarkForm.addEventListener("submit", function (e) {
     const userBookmarksRef = ref(db, `bookmarks/${user.uid}`);
     const newBookmarkRef = push(userBookmarksRef);
 
-    set(newBookmarkRef, {
-      title: title,
-      url: url
-    });
-
-    bookmarkTitleInput.value = "";
-    bookmarkUrlInput.value = "";
+    set(newBookmarkRef, { title, url })
+      .then(() => {
+        bookmarkTitleInput.value = "";
+        bookmarkUrlInput.value = "";
+      })
+      .catch((error) => {
+        alert("Failed to save bookmark: " + error.message);
+      });
   } else {
     alert("You must be logged in to save bookmarks.");
   }
 });
 
-// Signup
-signupButton.addEventListener("click", function (e) {
+//  Signup
+signupButton.addEventListener("click", (e) => {
   e.preventDefault();
   const email = signupEmailInput.value;
   const password = signupPasswordInput.value;
 
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      console.log("Signed up:", user.email);
-      showLoggedInView(user);
+      showLoggedInView(userCredential.user);
     })
     .catch((error) => {
       alert(error.message);
     });
 });
 
-// Login
-loginButton.addEventListener("click", function (e) {
+//  Login
+loginButton.addEventListener("click", (e) => {
   e.preventDefault();
   const email = loginEmailInput.value;
   const password = loginPasswordInput.value;
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      console.log("Logged in:", user.email);
-      showLoggedInView(user);
+      showLoggedInView(userCredential.user);
     })
     .catch((error) => {
       alert("Login failed: " + error.message);
     });
 });
 
-// Logout
-logoutButton.addEventListener("click", function (e) {
+//  Logout
+logoutButton.addEventListener("click", (e) => {
   e.preventDefault();
   signOut(auth)
     .then(() => {
-      console.log("User logged out.");
       showLoggedOutView();
       loginEmailInput.value = "";
       loginPasswordInput.value = "";
-      loginEmailInput.focus();
     })
     .catch((error) => {
       alert("Logout failed: " + error.message);
     });
 });
 
-// Switch Forms
-document.addEventListener("DOMContentLoaded", function () {
+// Toggle Forms
+document.addEventListener("DOMContentLoaded", () => {
   const showLoginLink = document.getElementById("show-login");
   const showSignupLink = document.getElementById("show-signup");
   const signupForm = document.getElementById("signup-form");
   const loginForm = document.getElementById("login-form");
 
   if (showLoginLink) {
-    showLoginLink.addEventListener("click", function (e) {
+    showLoginLink.addEventListener("click", (e) => {
       e.preventDefault();
       signupForm.style.display = "none";
       loginForm.style.display = "block";
@@ -141,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   if (showSignupLink) {
-    showSignupLink.addEventListener("click", function (e) {
+    showSignupLink.addEventListener("click", (e) => {
       e.preventDefault();
       loginForm.style.display = "none";
       signupForm.style.display = "block";
@@ -149,7 +143,30 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// Auth state
+// Google Sign In
+function handleGoogleSignIn() {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      showLoggedInView(result.user);
+    })
+    .catch((error) => {
+      if (error.code !== "auth/cancelled-popup-request") {
+        alert("Google Sign-in failed: " + error.message);
+      }
+    });
+}
+
+googleLoginButton?.addEventListener("click", (e) => {
+  e.preventDefault();
+  handleGoogleSignIn();
+});
+
+googleSignupButton?.addEventListener("click", (e) => {
+  e.preventDefault();
+  handleGoogleSignIn();
+});
+
+//  Listen to auth state
 onAuthStateChanged(auth, (user) => {
   if (user) {
     showLoggedInView(user);
@@ -158,55 +175,24 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-function handleGoogleSignIn() {
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      const user = result.user;
-      console.log("Signed in with Google:", user.email);
-      showLoggedInView(user);
-    })
-    .catch((error) => {
-      if (error.code !== "auth/cancelled-popup-request") {
-        alert("Google Sign-in failed: " + error.message);
-      } else {
-        console.warn("Google Sign-in popup canceled by another request.");
-      }
-    });
-}
-const googleLogin = document.getElementById("google-login");
-if (googleLogin) {
-  googleLogin.addEventListener("click", (e) => {
-    e.preventDefault();
-    handleGoogleSignIn();
-  });
-}
-
-const googleSignup = document.getElementById("google-signup");
-if (googleSignup) {
-  googleSignup.addEventListener("click", (e) => {
-    e.preventDefault();
-    handleGoogleSignIn();
-  });
-}
-
-
-// Logged-in view
+//  Show Logged-In View
 function showLoggedInView(user) {
   document.getElementById("logged-out-view").style.display = "none";
   document.getElementById("logged-in-view").style.display = "block";
 
   const userBookmarksRef = ref(db, `bookmarks/${user.uid}`);
-  //fetching data from firebase
+
   onValue(userBookmarksRef, (snapshot) => {
     bookmarkList.innerHTML = "";
 
     if (!snapshot.exists()) {
-        emptyState.style.display = "block";
-        bookmarkCount.textContent = "0";
-        return;
-      }
+      emptyState.style.display = "block";
+      bookmarkCount.textContent = "0";
+      return;
+    }
+
+    emptyState.style.display = "none";
     let count = 0;
-  emptyState.style.display = "none"; // Hide when we have bookmarks
 
     snapshot.forEach((childSnapshot) => {
       count++;
@@ -222,26 +208,26 @@ function showLoggedInView(user) {
 
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "🗑️";
-      deleteBtn.style.border = "none";
-      deleteBtn.style.background = "transparent";
-      deleteBtn.style.cursor = "pointer";
-      deleteBtn.style.fontSize = "1.2rem";
+      deleteBtn.classList.add("delete-btn");
       deleteBtn.title = "Delete Bookmark";
 
       deleteBtn.addEventListener("click", () => {
         const bookmarkToDeleteRef = ref(db, `bookmarks/${user.uid}/${bookmarkId}`);
-        remove(bookmarkToDeleteRef);
+        remove(bookmarkToDeleteRef).catch((error) => {
+          alert("Failed to delete: " + error.message);
+        });
       });
 
       li.appendChild(link);
       li.appendChild(deleteBtn);
       bookmarkList.appendChild(li);
     });
-    bookmarkCount.textContent = count.toString(); // Update count badge
+
+    bookmarkCount.textContent = count.toString();
   });
 }
 
-// Logged-out view
+//  Show Logged-Out View
 function showLoggedOutView() {
   document.getElementById("logged-out-view").style.display = "block";
   document.getElementById("logged-in-view").style.display = "none";
