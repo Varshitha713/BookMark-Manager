@@ -1,181 +1,335 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing: border-box;
-}
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-:root {
-  --bg-color: #fef9f5;         /* Soft Ivory */
-  --card-bg: #ffffff;          /* White cards */
-  --primary-color: #f7a9a8;    /* Peachy Pink */
-  --accent-color: #fdd692;     /* Soft Apricot */
-  --highlight-color: #a0c4ff;  /* Baby Blue */
-  --success-color: #9ae3af;    /* Mint Green */
-  --text-color: #333333;
-  --text-light: #666666;
-  --error-color: #f28482;      /* Soft Coral Red */
-}
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
 
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        max-width: 500px;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
 
-body{
-  display:flex;
-  flex-direction:column;
-  align-items: center;
-  justify-content: center;
-  gap:3rem;
-  padding: 2rem 0;
-  min-height: 100vh; 
-  background-color: var(--bg-color);
-  color:var(--text-color)
-}
-h1{
-  font-size: 2.5rem;
-  color:var(--text-color);
-  margin-bottom: 2.5rem;
-}
+      .container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      }
 
-.auth{
-  background-color: var(--card-bg);
-  padding:2rem;
-  border-radius: 8px;
-  width:100%;
-  max-width: 400px;
-  box-shadow: 0 8px 8px rgba(0,0,0,0.1);;
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  gap:1rem;
-}
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        font-weight: 300;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
 
-.btn{
-  display:flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap:1.5rem;
-  
-}
-button{
-  cursor:pointer;
-  background-color: var(--primary-color);
-  color: #fff; 
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  display:flex;
-  margin: 0 auto;
-}
-button:hover {
-  opacity: 0.9;
-}
+      h2 {
+        text-align: center;
+        color: #555;
+        margin-bottom: 20px;
+        font-weight: 400;
+        font-size: 1.5rem;
+      }
 
-input {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+      h3 {
+        color: #444;
+        margin-bottom: 20px;
+        font-size: 1.3rem;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 10px;
+      }
 
-#logged-in-view {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
+      .auth {
+        text-align: center;
+      }
 
-#bookmark-form-container {
-  background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-  color:var(--text-color);
-  text-align: center;
-}
+      .auth p {
+        margin-bottom: 20px;
+        color: #666;
+      }
 
-#bookmark-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  padding:2rem;
-}
+      .auth a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
 
-#bookmark-form input {
-  width: 100%;
-}
+      .auth a:hover {
+        color: #764ba2;
+        text-decoration: underline;
+      }
 
-#bookmark-form button {
-  align-self: flex-start;
-}
+      .form {
+        text-align: left;
+      }
 
-#logout {
-  /* align-self: flex-start; */
-  background: none;  /* Remove button background */
-  border: none;      /* Remove border */
-  padding: 0;      /* Remove padding */
-  width: 1.875em;
-  margin-left: 10rem;
-  margin-bottom: 2rem;
-  cursor: pointer;   /* Keep pointer */
-  color: var(--text-color);
-}
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 500;
+      }
 
-/* #logout:hover {
-    filter: invert(0.5);
-} */
+      input[type="email"],
+      input[type="password"],
+      input[type="text"],
+      input[type="url"] {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e1e5e9;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+        background: #f8f9fa;
+      }
 
-#logout svg {
-  width: 32px;
-  height: 32px;
-}
+      input[type="email"]:focus,
+      input[type="password"]:focus,
+      input[type="text"]:focus,
+      input[type="url"]:focus {
+        outline: none;
+        border-color: #667eea;
+        background: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+      }
 
-#logout:hover svg {
-  color: var(--primary-color); /* Or any hover effect */
-  transform: scale(1.1);       /* Slight grow */
-  transition: 0.2s;
-}
-h3{
-  margin:2rem 0.5rem;
-  color:var(--text-light)
-}
- #added-bookmarks{
-  display:flex;
-  flex-direction: column;
-  align-items:center ;
-  justify-content: center;
- }
- 
+      button {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
 
-#bookmarkList li {
-  margin: 10px 0;
-  padding: 8px;
-  background-color: var(--card-bg);
-  border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+      button:hover {
+        background: linear-gradient(135deg, #5a67d8, #6b46c1);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+      }
 
-#bookmarkList a {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: bold;
-}
-#bookmark-list a:hover {
-  text-decoration: underline;
-}
+      button:active {
+        transform: translateY(0);
+      }
 
-#bookmark-list button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  color: var(--error-color);
-}
+      #google-login {
+        background: #fff;
+        color: #333;
+        border: 2px solid #ddd;
+        margin-bottom: 20px;
+      }
 
-#bookmark-list button:hover {
-  transform: scale(1.1);
-}
+      #google-login:hover {
+        background: #f8f9fa;
+        border-color: #667eea;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      #logout {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: auto;
+        padding: 12px 15px;
+        background: #dc3545;
+        border-radius: 50px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #logout:hover {
+        background: #c82333;
+      }
+
+      #bookmark-form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+      }
+
+      #bookmark-form input {
+        margin-bottom: 15px;
+      }
+
+      #bookmark-form button {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        margin-bottom: 0;
+      }
+
+      #bookmark-form button:hover {
+        background: linear-gradient(135deg, #218838, #17a2b8);
+      }
+
+      #added-bookmarks {
+        margin-top: 30px;
+      }
+
+      #bookmark-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      #bookmark-list li {
+        background: #f8f9fa;
+        margin-bottom: 12px;
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+        border-left: 4px solid #667eea;
+      }
+
+      #bookmark-list li:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      #bookmark-list li a {
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+        flex-grow: 1;
+        margin-right: 10px;
+        transition: color 0.3s ease;
+      }
+
+      #bookmark-list li a:hover {
+        color: #667eea;
+      }
+
+      .delete-btn {
+        background: #dc3545 !important;
+        color: white !important;
+        border: none !important;
+        padding: 8px 12px !important;
+        border-radius: 8px !important;
+        cursor: pointer !important;
+        font-size: 1rem !important;
+        transition: all 0.3s ease !important;
+        width: auto !important;
+        margin: 0 !important;
+        text-transform: none !important;
+        letter-spacing: normal !important;
+      }
+
+      .delete-btn:hover {
+        background: #c82333 !important;
+        transform: scale(1.1) !important;
+      }
+
+      #logged-out-view,
+      #logged-in-view {
+        position: relative;
+      }
+
+      #logged-in-view {
+        max-width: 600px;
+        width: 100%;
+      }
+
+      .or-divider {
+        position: relative;
+        text-align: center;
+        margin: 25px 0;
+        color: #666;
+      }
+
+      .or-divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #ddd;
+        z-index: 1;
+      }
+
+      .or-divider span {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0 15px;
+        position: relative;
+        z-index: 2;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 30px 20px;
+          margin: 10px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        #logout {
+          position: static;
+          margin-bottom: 20px;
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #666;
+        font-style: italic;
+      }
+
+      .bookmark-count {
+        background: #667eea;
+        color: white;
+        border-radius: 20px;
+        padding: 4px 12px;
+        font-size: 0.9rem;
+        margin-left: 10px;
+        font-weight: 600;
+      }
