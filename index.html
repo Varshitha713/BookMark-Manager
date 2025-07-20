@@ -12,22 +12,22 @@
     <section id="logged-out-view">
     <h1>Bookmark Manager</h1>
     <div class="auth" >
-      <h2>Login/Signup</h2>
+      <h2>Choose how to sign up</h2>
+      <p>already have an account? &nbsp;<a  id ="login" href=#login>Login</a></p>
                 <!-- <div class="provider-buttons">
                     <button id="google-btn" class="provider-btn">
                         <img src="assets/google-logo.png" class="google-btn-logo">
                         Sign in with Google
                     </button>
                 </div> -->
-      <button id="google-login">Sign in with Google</button>
-      <p>or</p>
+                <button id="google-login">Sign up with Google</button>
+                <p align="center">or</p>
       <form action="#" method="post" class="form">
           <label for="email">Email:</label><br>
           <input type="email" id="email" name="email" required><br><br>
           <label for="password">Password: </label><br>
           <input type="password"  id="password" name="password" required><br><br>
-          <div class="btn"><button id="login">Login</button>
-          <button id="signup">Signup</button>
+          <button align="center" id="signup">Signup</button>
           </div>
          </form> 
   </div>
@@ -42,14 +42,16 @@
     <h2>Add Bookmark</h2>
 
     <form id="bookmark-form">
-      <input type="text" id="bookmark-title" name="Bookmart-Title" placeholder="Enter bookmark name">
-      <input type="url" name="Bookmark URL" id="bookmark-url" placeholder="Enter URL">
+      <input type="text" id="bookmark-title" name="Bookmark-Title" placeholder="Enter bookmark name">
+      <input type="text" name="Bookmark URL" id="bookmark-url" placeholder="Enter URL">
       <button type="submit">Add</button>
     </form>
+    <div id="added-bookmarks"> 
+    <h3>Bookmarks</h3>
+     <ul id="bookmark-list">
+     </ul>
     </div>
-     <h3>Bookmarks</h3>
-  <ul id="bookmark-list"></ul>
-  
+    </div>
   </section>
 
 <script type="module" src="firebase-config.js"></script>
