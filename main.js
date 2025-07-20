@@ -1,5 +1,5 @@
 // Importing Firebase core + auth
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import app from "./FirebaseConfig.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -22,7 +22,7 @@ import {
 import { firebaseConfig } from "./firebase-config.js";
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 const provider = new GoogleAuthProvider();
