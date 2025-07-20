@@ -147,35 +147,22 @@ h3{
   justify-content: center;
  }
  
-#bookmark-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(200px, 1fr));
-  gap: 12px;
-  list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  max-width: 800px;
-}
 
-#bookmark-list li {
-  background-color: #f0f4ff;
-  border: 1px solid #ccd6f6;
+#bookmarkList li {
+  margin: 10px 0;
+  padding: 8px;
+  background-color: var(--card-bg);
   border-radius: 10px;
-  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
-
-#bookmark-list a {
+#bookmarkList a {
   color: var(--primary-color);
   text-decoration: none;
   font-weight: bold;
-  margin-right: 15px;
 }
 #bookmark-list a:hover {
   text-decoration: underline;
